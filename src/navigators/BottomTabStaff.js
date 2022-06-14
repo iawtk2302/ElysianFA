@@ -12,7 +12,7 @@ import { CustomColor } from '../common/Color';
 import firestore from '@react-native-firebase/firestore';
 import {ActivityIndicator} from 'react-native';
 const Tab = createBottomTabNavigator();
-const BottomtabAdmin = () => {
+const BottomtabStaff = () => {
   return (
       <Tab.Navigator screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -49,6 +49,6 @@ const BottomtabAdmin = () => {
   )
 }
 
-export default BottomtabAdmin
+export default BottomtabStaff
 
 const styles = StyleSheet.create({})
