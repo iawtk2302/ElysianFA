@@ -16,14 +16,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './src/screens/Home';
 import auth from '@react-native-firebase/auth';
 import Navigation from './src/navigators/Navigation';
-import Bottomtab from './src/navigators/BottomTab';
 import {NavigationContainer} from '@react-navigation/native';
 import SignIn from './src/screens/SignIn';
-import firestore from '@react-native-firebase/firestore';
-import SwitchBottomTab from './src/navigators/SwitchBottomTab';
+import firestore from '@react-native-firebase/firestore'; 
+import SwitchScreen from './src/navigators/SwitchScreen';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
+
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const onAuthStateChanged = user => {
@@ -42,7 +42,7 @@ const App = () => {
     return null;
   }
   // console.log(currentUser)
-  if (currentUser) return <SwitchBottomTab />;
+  if (currentUser) return <SwitchScreen />;
   return <Navigation />;
 };
 

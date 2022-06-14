@@ -4,10 +4,10 @@ import {ActivityIndicator} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {NavigationContainer} from '@react-navigation/native';
-import BottomtabAdmin from './BottomTab';
-import BottomtabShipper from './BottomTabShipper';
-import BottomtabStaff from './BottomTabStaff';
-const SwitchBottomTab = () => {
+import MainAdmin from '../screens/MainAdmin';
+import MainShipper from '../screens/MainShipper';
+import MainStaff from '../screens/MainStaff';
+const SwitchScreen = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isShipper, setIsShipper] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -35,25 +35,19 @@ const SwitchBottomTab = () => {
   if (loading) {
     return <ActivityIndicator />;
   }
-  if (isAdmin)
-    return (
-      <NavigationContainer>
-        <BottomtabAdmin />
-      </NavigationContainer>
-    );
-  if (isShipper)
-    return (
-      <NavigationContainer>
-        <BottomtabShipper />
-      </NavigationContainer>
-    );
-  return (
-    <NavigationContainer>
-      <BottomtabStaff />
-    </NavigationContainer>
-  );
+  if(isAdmin)
+    return(
+      <MainAdmin/>
+    )
+  if(isShipper)
+    return(
+      <MainShipper/>
+    )
+  return(
+    <MainStaff/>
+  )
 };
 
-export default SwitchBottomTab;
+export default SwitchScreen;
 
 const styles = StyleSheet.create({});
