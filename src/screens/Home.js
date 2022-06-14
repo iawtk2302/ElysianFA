@@ -28,9 +28,7 @@ const Home = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isShipper, setIsShipper] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const getData = async() => {
-  //   await
-  // }
+  const [staff, setStaff] = useState(false)
   useEffect(() => {
     let isMounted = true;
     firestore()
@@ -40,8 +38,12 @@ const Home = () => {
       .then(doc => {
         if (doc.data().type === 'admin') {
           if (isMounted) setIsAdmin(true);
-        } else if (doc.data().type === 'shipper')
+        } else if (doc.data().type === 'shipper'){
           if (isMounted) setIsShipper(true);
+        }
+        else{
+          setStaff(false)
+        }
         setLoading(false);
       });
 
@@ -52,7 +54,7 @@ const Home = () => {
   if (loading) {
     return <ActivityIndicator />;
   }
-  if (isAdmin)
+  if (isAdmin || staff)
     return (
       <Tab.Navigator>
         <Tab.Screen name="waiting" component={Waiting} />

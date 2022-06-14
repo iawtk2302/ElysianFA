@@ -40,10 +40,10 @@ const BottomtabStaff = () => {
           height:50
         }
       })}>
-        <Tab.Screen name="Home" component={Home} />
-        {/* <Tab.Screen name="Chat" component={Chat} />
-        <Tab.Screen name="Post" component={Post} />
-      <Tab.Screen name="Notification" component={Notification} /> */}
+        {/* <Tab.Screen name="Home" component={Home} /> */}
+        {/* <Tab.Screen name="Chat" component={Chat} /> */}
+        {/* <Tab.Screen name="Post" component={Post} /> */}
+      <Tab.Screen name="Notification" component={Notification} />
       <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
   )
