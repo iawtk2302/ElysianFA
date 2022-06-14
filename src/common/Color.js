@@ -1,0 +1,1 @@
+export const CustomColor='#4FC4F5'

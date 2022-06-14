@@ -1,0 +1,129 @@
+{
+  "project_info": {
+    "project_number": "242687886098",
+    "project_id": "elysian-cfa87",
+    "storage_bucket": "elysian-cfa87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242687886098:android:be93f03e1feec5a5a429cb",
+        "android_client_info": {
+          "package_name": "com.elysian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242687886098-m8ssf69c8hq8o0jof097js9u3qr34alb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elysian",
+            "certificate_hash": "943be545021e1b0214c18f382e8b27de825def08"
+          }
+        },
+        {
+          "client_id": "242687886098-u0rbilhe41mo9b4voavgp337t0t5tvto.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elysian",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "242687886098-v38o8ojebj7bo7v67aov2sff2bl19qcl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elysian",
+            "certificate_hash": "e6a8b79e11d1b916062aa905e90083d6ddf432a1"
+          }
+        },
+        {
+          "client_id": "242687886098-tqvu3kpcru4uo0lhdg47otfetdrb6slj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcgiYsyrVoVlPeFbMGoyzoXFYaq_9Ewbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242687886098-tqvu3kpcru4uo0lhdg47otfetdrb6slj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242687886098:android:e0613c729a072cb4a429cb",
+        "android_client_info": {
+          "package_name": "com.elysianfa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242687886098-tqvu3kpcru4uo0lhdg47otfetdrb6slj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcgiYsyrVoVlPeFbMGoyzoXFYaq_9Ewbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242687886098-tqvu3kpcru4uo0lhdg47otfetdrb6slj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242687886098:android:fa94aca5c2ac471ea429cb",
+        "android_client_info": {
+          "package_name": "com.testfirestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242687886098-25e008fq1d3opfmb16aupdvv806c75c1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.testfirestore",
+            "certificate_hash": "943be545021e1b0214c18f382e8b27de825def08"
+          }
+        },
+        {
+          "client_id": "242687886098-tqvu3kpcru4uo0lhdg47otfetdrb6slj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcgiYsyrVoVlPeFbMGoyzoXFYaq_9Ewbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242687886098-tqvu3kpcru4uo0lhdg47otfetdrb6slj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
