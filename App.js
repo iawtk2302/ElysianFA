@@ -43,7 +43,7 @@ const App = () => {
   }
   // console.log(currentUser)
   if (currentUser) return <SwitchScreen />;
-  return <Navigation />;
+  return <Navigation type={'signIn'}/>;
 };
 
 export default App;

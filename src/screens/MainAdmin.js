@@ -1,14 +1,39 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
 import React from 'react'
-import { signOut } from '../utils/Auth'
+import ItemMain from '../components/itemMain'
 
 const MainAdmin = () => {
+  const dataItem=[
+    {
+      title:"Đơn hàng",
+      screen:"Order"
+    },
+    {
+      title:"Thức uống",
+      screen:"Order"
+    },
+    {
+      title:"Khuyến mãi",
+      screen:"Order"
+    },
+    {
+      title:"Quảng cáo",
+      screen:"Order"
+    },
+    {
+      title:"Đăng xuất",
+      screen:""
+    }
+  ]
   return (
-    <View>
-      <Text>MainAdmin</Text>
-      <TouchableOpacity onPress={signOut}>
-        <Text>signout</Text>
-      </TouchableOpacity>
+    <View style={{alignItems:'center',justifyContent:'center',flex:1}}>
+      <FlatList
+        style={{marginTop:200}}
+        data={dataItem}
+        renderItem={({item})=><ItemMain title={item.title} screen={item.screen}/>}
+        keyExtractor={(item)=>item+item.title}
+        numColumns={2}
+      />
     </View>
   )
 }

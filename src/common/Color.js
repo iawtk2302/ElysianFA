@@ -1,1 +1,3 @@
-export const CustomColor='#4FC4F5'
+export default CORLORS={
+    custom:'#B81F32'
+}
