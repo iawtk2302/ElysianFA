@@ -6,13 +6,19 @@ import {
   TouchableOpacity,
   Keyboard,
   Button,
-  ToastAndroid
+  ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
 import {signUp} from '../utils/Auth';
-// import auth from '@react-native-firebase/auth';
+import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/input';
 const SignUp = ({navigation}) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([]);
+  const [items, setItems] = useState([
+    {label: ' staff', value: 'staff'},
+    {label: ' shipper', value: 'shipper'},
+  ]);
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -23,6 +29,7 @@ const SignUp = ({navigation}) => {
   });
   const [errors, setErrors] = useState({});
   const validate = () => {
+    const emailFormat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     Keyboard.dismiss();
     if (!inputs.email) {
       handleErrors('please input email', 'email');
@@ -42,22 +49,24 @@ const SignUp = ({navigation}) => {
     if (!inputs.lastname) {
       handleErrors('Please input lastname', 'lastname');
     }
+    if(!inputs.email.match(emailFormat)){
+      console.log('ngu')
+      return; 
+    }
     if (
       inputs.email != '' &&
       inputs.password != '' &&
       inputs.confirmpassword != '' &&
-      inputs.name != '' &&
-      inputs.username != '' &&
-      inputs.lastname != ''
+      inputs.username != ''
     ) {
       if (inputs.password == inputs.confirmpassword) {
         signUp(inputs);
+        // console.log(inputs)
       } else {
-        ToastAndroid.show("Check password and confirmpassword", 3)
+        ToastAndroid.show('Check password and confirmpassword', 3);
       }
-    }
-    else {
-      ToastAndroid.show("Nhập đầy đủ thông tin", 3)
+    } else {
+      ToastAndroid.show('Nhập đầy đủ thông tin', 3);
     }
   };
   const handleErrors = (errorsMessage, input) => {
@@ -72,10 +81,10 @@ const SignUp = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={require('../assets/back.png')} style={styles.back} />
         </TouchableOpacity>
-        <Text style={styles.lbSignUp}>Sign up</Text>
+        <Text style={styles.lbSignUp}>Đăng ký</Text>
       </View>
-      <Text style={styles.lbCreate}>Create your account</Text>
-      <View style={styles.name_lastname}>
+      <Text style={styles.lbCreate}>Tạo tài khoản</Text>
+      {/* <View style={styles.name_lastname}>
         <Input
           style={{marginLeft: -5}}
           placeholder="Your Name"
@@ -91,42 +100,61 @@ const SignUp = ({navigation}) => {
           error={errors.lastname}
           onFocus={() => handleErrors(null, 'lastname')}
         />
-      </View>
-      <View style={{height: 250, marginTop: 2}}>
+      </View> */}
+      <View style={{height: 250, marginTop: 20}}>
         <Input
-          placeholder="Username"
+          placeholder="Tên của bạn"
           onChangeText={text => handleOnChange(text, 'username')}
           error={errors.username}
           onFocus={() => handleErrors(null, 'username')}
         />
         <Input
           placeholder="Email"
-          keyboardType='email-address'
+          keyboardType="email-address"
           onChangeText={text => handleOnChange(text, 'email')}
           error={errors.email}
           onFocus={() => handleErrors(null, 'email')}
         />
         <Input
-          placeholder="Password"
+          placeholder="Mật khẩu"
           password
           onChangeText={text => handleOnChange(text, 'password')}
           error={errors.password}
           onFocus={() => handleErrors(null, 'password')}
         />
         <Input
-          placeholder="Confirm password"
+          placeholder="Xác nhận mật khẩu"
           password
           onChangeText={text => handleOnChange(text, 'confirmpassword')}
           error={errors.confirmpassword}
           onFocus={() => handleErrors(null, 'confirmpassword')}
         />
       </View>
+      <DropDownPicker
+        placeholder=" Chọn chức vụ"
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={value => {
+          setValue(value);
+        }}
+        theme='LIGHT'
+        // badgeColors='#F2F2F2'
+        setItems={setItems}
+        // closeOnBackPressed='#F2F2F2'
+        style={{borderColor: '#4FC4F5', }}
+        onChangeValue={() => {
+          setInputs(prevState => ({...prevState, ['type']: value}));
+          // setGenderFill(true);
+        }}
+      />
       <TouchableOpacity
         style={styles.btnSignUp}
         activeOpacity={0.8}
         onPress={validate}>
         <Text style={{fontWeight: 'bold', fontSize: 16, color: '#fff'}}>
-          Sign In
+          Đăng ký
         </Text>
       </TouchableOpacity>
     </View>

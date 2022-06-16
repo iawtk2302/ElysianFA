@@ -12,13 +12,10 @@ const SwitchScreen = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isShipper, setIsShipper] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const getData = async() => {
-  //   await
-  // }
   useEffect(() => {
     let isMounted = true;
     firestore()
-      .collection('Users')
+      .collection('UserAdmin')
       .doc(auth().currentUser.uid)
       .get()
       .then(doc => {

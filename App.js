@@ -20,6 +20,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import SignIn from './src/screens/SignIn';
 import firestore from '@react-native-firebase/firestore'; 
 import SwitchScreen from './src/navigators/SwitchScreen';
+import { signIn } from './src/utils/Auth';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -43,7 +44,11 @@ const App = () => {
   }
   // console.log(currentUser)
   if (currentUser) return <SwitchScreen />;
+<<<<<<< HEAD
   return <Navigation type={'signIn'}/>;
+=======
+  return <Navigation type={'SignIn'}/>
+>>>>>>> Khanh
 };
 
 export default App;
