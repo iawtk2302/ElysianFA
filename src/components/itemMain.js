@@ -9,6 +9,8 @@ const ItemMain = ({title,screen}) => {
     const onPress=()=>{
         if(title=='Đăng xuất')
         signOut()
+        else if(title=='Quảng cáo')
+        navigation.push(screen)
         else
         navigation.push(screen)
     }

@@ -11,6 +11,7 @@ import Order from '../screens/order';
 import SearchProduct from '../screens/searchProduct';
 import EditProduct from '../screens/editProduct';
 import AddProduct from '../screens/addProduct';
+import AddBanner from '../screens/addBanner';
 const Stack = createNativeStackNavigator();
 const Navigation = ({type}) => {
   const type1 = type
@@ -26,6 +27,7 @@ const Navigation = ({type}) => {
         <Stack.Screen name="SearchProduct" component={SearchProduct} />
         <Stack.Screen name="EditProduct" component={EditProduct} />
         <Stack.Screen name="AddProduct" component={AddProduct} />
+        <Stack.Screen name="AddBanner" component={AddBanner} />
       </Stack.Navigator>
     </NavigationContainer>
   )
