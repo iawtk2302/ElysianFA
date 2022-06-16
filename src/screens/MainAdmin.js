@@ -10,7 +10,7 @@ const MainAdmin = () => {
     },
     {
       title:"Thức uống",
-      screen:"Order"
+      screen:"Product"
     },
     {
       title:"Khuyến mãi",

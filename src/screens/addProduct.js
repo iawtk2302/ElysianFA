@@ -100,7 +100,7 @@ const AddProduct = () => {
     type:value
   })
   .then(() => {
-    navigation.push('Order')
+    navigation.push('Product')
   });
 }}
   return (

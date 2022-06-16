@@ -13,10 +13,10 @@ import EditProduct from '../screens/editProduct';
 import AddProduct from '../screens/addProduct';
 import AddBanner from '../screens/addBanner';
 import Shipping from '../screens/shipping';
-import Order from '../screens/product';
+import Product from '../screens/product';
+
 const Stack = createNativeStackNavigator();
 const Navigation = ({type}) => {
-  const type1 = type
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName={type}>
@@ -25,7 +25,7 @@ const Navigation = ({type}) => {
         <Stack.Screen name="MainAdmin" component={MainAdmin} />
         <Stack.Screen name="MainShipper" component={MainShipper} />
         <Stack.Screen name="MainStaff" component={MainStaff} />
-        <Stack.Screen name="Order" component={Order} />
+        <Stack.Screen name="Product" component={Product} />
         <Stack.Screen name="SearchProduct" component={SearchProduct} />
         <Stack.Screen name="EditProduct" component={EditProduct} />
         <Stack.Screen name="AddProduct" component={AddProduct} />

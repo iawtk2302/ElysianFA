@@ -16,7 +16,7 @@ import ItemCategory from '../components/itemCategory';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Color from '../common/Color';
 import {useNavigation} from '@react-navigation/native';
-const Order = () => {
+const Product = () => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false)
   const [section, setSection] = useState([]);
@@ -229,7 +229,7 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Product;
 
 const styles = StyleSheet.create({
   btnfl: {
