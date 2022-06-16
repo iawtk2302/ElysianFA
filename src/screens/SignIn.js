@@ -78,7 +78,7 @@ const SignIn = () => {
           Sign In
         </Text>
       </TouchableOpacity>
-      {/* <Text style={styles.OtherSignIn}>- Or sign in with -</Text>
+      <Text style={styles.OtherSignIn}>- Or sign in with -</Text>
       <TouchableOpacity
         style={styles.gg}
         activeOpacity={0.7}
@@ -109,7 +109,7 @@ const SignIn = () => {
           onPress={() => navigation.navigate('SignUp')}>
           Sign up
         </Text>
-      </View> */}
+      </View>
     </SafeAreaView>
   );
 };

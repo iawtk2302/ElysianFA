@@ -17,8 +17,6 @@ import ItemInOder from '../components/itemInOrders';
 import ItemInOrders from '../components/itemInOrders';
 import OderDetail from '../components/OderDetail';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Post from './Post';
-import Notification from './Notification';
 import Waiting from './waiting';
 import Shipping from './shipping';
 import Complete from './complete';

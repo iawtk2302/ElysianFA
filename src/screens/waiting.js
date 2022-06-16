@@ -7,6 +7,7 @@ import {
   Modal,
   Pressable,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {signOut} from '../utils/Auth';
@@ -16,29 +17,59 @@ import ItemInOder from '../components/itemInOrders';
 import ItemInOrders from '../components/itemInOrders';
 import OderDetail from '../components/OderDetail';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Post from './Post';
-import Notification from './Notification';
 import {ActivityIndicator} from 'react-native';
+import IonIcons from 'react-native-vector-icons/Ionicons';
 const Tab = createMaterialTopTabNavigator();
 const Waiting = () => {
   const [arrProducts, setArrProducts] = useState([]);
   const [data, setData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const getData = async () => {
-  //   await
-
-  // };
-
+  const changeStatus = async () => {
+    console.log(arrProducts[0].orderID);
+    if (convertButton() === 'Xác nhận' || convertButton() === 'Hoàn thành')
+      Alert.alert('Xác nhận', 'Bạn xác nhận thay đổi trạng thái đơn hàng', [
+        {
+          text: 'Không',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'Có',
+          onPress: async () => {
+            await firestore()
+              .collection('Orders')
+              .doc(arrProducts[0].orderID)
+              .update({
+                state:
+                  convertButton() === 'Xác nhận'
+                    ? 'shipping'
+                    : convertButton() === 'Hoàn thành'
+                    ? 'completed'
+                    : convertButton() === 'Đã hoàn thành'
+                    ? 'completed'
+                    : 'cancelled',
+              })
+              .then(() => {setModalVisible(false)});
+          },
+        },
+      ]);
+  };
+  const convertButton = () => {
+    return arrProducts[0]?.state === 'waiting'
+      ? 'Xác nhận'
+      : arrProducts[0]?.state === 'shipping'
+      ? 'Hoàn thành'
+      : arrProducts[0]?.state === 'cancelled'
+      ? 'Đã hủy'
+      : 'Đã hoàn thành';
+  };
   useEffect(() => {
-    // getData();
     firestore()
       .collection('Orders')
       .where('state', '==', 'waiting')
-      // .orderBy('createdAt', 'desc')
       .onSnapshot(query => {
         const temp = [];
-        // console.log(query.data())
         query.forEach(doc => {
           temp.push(doc.data());
         });
@@ -46,15 +77,28 @@ const Waiting = () => {
           return b.createdAt - a.createdAt;
         });
         setData(temp);
-        // console.log(temp)
-        setLoading(false)
       });
+    setLoading(false);
   }, []);
-  if (loading) {
-    return <ActivityIndicator />;
-  }
+  // if (loading) {
+  //   return <ActivityIndicator />;
+  // }
   return (
     <View>
+      {loading && (
+        <ActivityIndicator
+          size={'large'}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
+      )}
       <ScrollView>
         {data.map((item, index) => {
           return (
@@ -78,13 +122,44 @@ const Waiting = () => {
                 </View>
               );
             })}
+            <View
+              style={{
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+              }}>
+              <Text style={{marginTop: 10, fontSize: 16, marginRight: 15}}>
+                {' '}
+                Tổng cộng:
+                <Text style={{color: '#000'}}> {arrProducts[0]?.total}</Text>
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  changeStatus();
+                }}
+                style={{
+                  backgroundColor: '#F84F4F',
+                  // alignSelf: 'flex-end',
+                  paddingHorizontal: 10,
+                  paddingVertical: 8,
+                  borderRadius: 10,
+                  marginRight: 10,
+                  marginTop: 10,
+                }}>
+                <Text>{convertButton()}</Text>
+              </TouchableOpacity>
+            </View>
             <View height={70} />
           </ScrollView>
           <TouchableOpacity
             onPress={() => {
               setModalVisible(false);
-            }}>
-            <Text>close</Text>
+            }}
+            style={styles.closeBtn}>
+            <IonIcons
+              name="close-circle"
+              style={{fontSize: 50, color: '#B81F32'}}
+            />
           </TouchableOpacity>
         </View>
       </Modal>

@@ -7,17 +7,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import MainAdmin from '../screens/MainAdmin';
 import MainShipper from '../screens/MainShipper';
 import MainStaff from '../screens/MainStaff';
+import Navigation from './Navigation';
 const SwitchScreen = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isShipper, setIsShipper] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const getData = async() => {
-  //   await
-  // }
   useEffect(() => {
     let isMounted = true;
     firestore()
-      .collection('Users')
+      .collection('UserAdmin')
       .doc(auth().currentUser.uid)
       .get()
       .then(doc => {
@@ -37,14 +35,14 @@ const SwitchScreen = () => {
   }
   if(isAdmin)
     return(
-      <MainAdmin/>
+      <Navigation type={'MainAdmin'}/>
     )
   if(isShipper)
     return(
-      <MainShipper/>
+      <Navigation type={'MainShipper'}/>
     )
   return(
-    <MainStaff/>
+    <Navigation type={'MainStaff'}/>
   )
 };
 
