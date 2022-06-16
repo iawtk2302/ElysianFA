@@ -1,13 +1,25 @@
-import {View, TouchableOpacity, Text} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Modal,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import fireStore from '@react-native-firebase/firestore';
 import converTimeToFB from '../utils/convertTime';
-import { ActivityIndicator } from 'react-native';
-
-export default ItemInOder = ({item, setModalVisible, setArrProducts, setLoading}) => {
+import OderDetail from './OderDetail';
+export default ItemInOder = ({
+  item,
+  setModalVisible,
+  setArrProducts,
+  setLoading,
+}) => {
   const [arrProduct, setArrProduct] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
-  const [address, setAddress] = useState()
+  const [address, setAddress] = useState();
   // const [loading, setLoading] = useState(true);
 
   const changeColor = state => {
@@ -39,6 +51,7 @@ export default ItemInOder = ({item, setModalVisible, setArrProducts, setLoading}
       : 'Đã hoàn thành';
   };
   const loadProducts = async () => {
+    setLoading(true);
     const temp = [];
     await fireStore()
       .collection('OrderDetails')
@@ -49,44 +62,79 @@ export default ItemInOder = ({item, setModalVisible, setArrProducts, setLoading}
           temp.push(docSnap.data());
         });
       });
-    const tempProducts = [];
-    for (let item of temp) {
+    // const tempProducts = [];
+    for (let item1 of temp) {
       await fireStore()
         .collection('Products')
-        .doc(item.productID)
+        .doc(item1.productID)
         .get()
         .then(docSnap => {
-          tempProducts.push(docSnap.data());
+          const product = docSnap.data();
+          const size = {
+            name: item1.size,
+            price:
+              item1.size === 'L' ? '8000' : item1.size === 'M' ? '16000' : '0',
+          };
+          item1.state = item.state;
+          item1.product = product;
+          item1.size = size;
+          item1.total = item.totalCost
+          // tempProducts.push(docSnap.data());
+          setLoading(false);
+          
         });
     }
-    setArrProducts(tempProducts);
+    setArrProducts(temp);
+    setModalVisible(true);
   };
   const changeStatus = async () => {
-    await fireStore()
-      .collection('Orders')
-      .doc(item.orderID)
-      .update({
-        state: convertButton() === 'Xác nhận' ? 'shipping' : 'completed',
-      })
-      .then(() => {});
+    if(convertButton() === 'Xác nhận' || convertButton() === 'Hoàn thành')
+    Alert.alert('Xác nhận', 'Bạn xác nhận thay đổi trạng thái đơn hàng', [
+      {
+        text: 'Không',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Có',
+        onPress: async () => {
+          await fireStore()
+            .collection('Orders')
+            .doc(item.orderID)
+            .update({
+              state:
+                convertButton() === 'Xác nhận'
+                  ? 'shipping'
+                  : convertButton() === 'Hoàn thành'
+                  ? 'completed'
+                  : convertButton() === 'Đã hoàn thành'
+                  ? 'completed'
+                  : 'cancelled',
+            })
+            .then(() => {});
+        },
+      },
+    ]);
   };
 
   useEffect(() => {
     let isMounted = true;
-    fireStore()
+    Promise.all([
+      fireStore()
       .collection('Users')
       .doc(item.userID)
       .get()
       .then(doc => {
         if (isMounted) setUserInfo(doc.data());
-      });
+      }),
     fireStore()
-    .collection('Addresses')
-    .doc(item.idAddress)
-    .get()
-    .then(doc => {
-      if(isMounted)setAddress(doc.data())
-    })
+      .collection('Addresses')
+      .doc(item.idAddress)
+      .get()
+      .then(doc => {
+        if (isMounted) setAddress(doc.data());
+      }),
+    ])
     // setLoading(false)
     return () => {
       isMounted = false;
@@ -106,13 +154,14 @@ export default ItemInOder = ({item, setModalVisible, setArrProducts, setLoading}
       }}>
       <TouchableOpacity
         onPress={() => {
-          console.log(item.userID);
-          // setArrProducts([]);
-          // loadProducts();
-          setModalVisible(true);
+          // console.log(item.userID);
+          setArrProducts([]);
+          loadProducts();
         }}>
-        <Text>{userInfo?.name}</Text>
-        <Text>{userInfo.phoneNumber}</Text>
+        <Text style={{alignSelf: 'center', color: '#000', fontSize: 16}}>
+          #{item?.orderID}
+        </Text>
+        <Text style={{fontSize: 16}}>Tên: {userInfo?.name}</Text>
         <Text>Tổng cộng: {parseInt(item.totalCost)}đ</Text>
         <Text>Ngày tạo: {converTimeToFB(item.createdAt)}</Text>
         <View
@@ -122,11 +171,22 @@ export default ItemInOder = ({item, setModalVisible, setArrProducts, setLoading}
             marginTop: 10,
             flexDirection: 'row',
             justifyContent: 'space-between',
+            alignItems: 'center',
           }}>
-          <Text style={{color: changeColor(item.state), fontWeight: '500'}} numberOfLines={2}>
+          <Text
+            style={{
+              color: changeColor(item.state),
+              fontWeight: '500',
+              fontSize: 15,
+            }}
+            numberOfLines={2}>
             {address?.ward + ',' + address?.district + '\n' + address?.province}
+            {/* {userInfo?.phoneNumber} */}
           </Text>
           <TouchableOpacity
+            activeOpacity={
+              item.state === 'cancelled' || item.state === 'completed' ? 1 : 0.5
+            }
             style={{
               backgroundColor: 'red',
               height: 30,

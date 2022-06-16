@@ -6,8 +6,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 import database from '@react-native-firebase/database';
-
-//d9:99:c9:3a:8b:bf:84:8c:a5:db:3a:d4:4f:41:a3:91:35:3e:ce:62
+import firestore from '@react-native-firebase/firestore'
 export const signIn = (email, password) => {
   auth()
     .signInWithEmailAndPassword(email, password)
@@ -21,13 +20,15 @@ export const signIn = (email, password) => {
     });
 };
 const addUser = async inputs => {
-  await database().ref(`/user/${auth().currentUser.uid}`).set({
-    uid: auth().currentUser.uid,
+  await firestore()
+  .collection('UserAdmin')
+  .doc(auth().currentUser.uid)
+  .set({
     username: inputs.username,
     email: inputs.email,
-    firstname: inputs.name,
-    name: inputs.lastname,
-  });
+    type: inputs.type
+  })
+
 };
 export const signUp = inputs => {
   auth()
