@@ -12,16 +12,17 @@ const Employee = () => {
       .collection('UserAdmin')
       .orderBy('username', 'desc')
       .onSnapshot(query => {
+        // setArrUser([])
         const temp = [];
         query.forEach(doc => {
           temp.push(doc.data());
         });
-        if (isMounted) setArrUser(temp);
+        setArrUser(temp);
         router.params = temp;
       });
-    return () => {
-      isMounted = false;
-    };
+    // return () => {
+    //   isMounted = false;
+    // };
   }, []);
   // const checkName = (item) => {
   //   console.log(item)

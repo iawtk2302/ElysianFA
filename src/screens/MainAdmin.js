@@ -10,7 +10,7 @@ const MainAdmin = () => {
     },
     {
       title:"Thức uống",
-      screen:"Product"
+     screen:"Product"
     },
     {
       title:"Khuyến mãi",
@@ -29,7 +29,7 @@ const MainAdmin = () => {
       screen:""
     },
     
-  ]
+  ] 
   return (
     <View style={{alignItems:'center',justifyContent:'center',flex:1}}>
       <FlatList

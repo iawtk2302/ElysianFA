@@ -92,7 +92,7 @@ export default ItemInOder = ({
       Alert.alert('Xác nhận', 'Bạn xác nhận thay đổi trạng thái đơn hàng', [
         {
           text: 'Không',
-          onPress: () => console.log('Cancel Pressed'),
+          // onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
         {

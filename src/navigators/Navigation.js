@@ -51,7 +51,7 @@ const Navigation = ({type}) => {
             headerShown: true,
             headerTitleAlign: 'center',
             headerRight: () => (
-              <Icon name='search-outline' size={25} onPress={() => {navigation.navigate('SearchEmployee', {data: route})}}/>
+              <Icon name='search-outline' size={25} onPress={() => {navigation.push('SearchEmployee', {data: route})}}/>
             ),
           })}
         />

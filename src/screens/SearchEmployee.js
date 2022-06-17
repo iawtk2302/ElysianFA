@@ -127,7 +127,7 @@ const SearchEmployee = () => {
         <Text
           style={{width: '15%', paddingLeft: 10, color: Color.custom}}
           onPress={() => {
-            navigation.goBack();
+            navigation.navigate('Employee');
           }}>
           Hủy
         </Text>

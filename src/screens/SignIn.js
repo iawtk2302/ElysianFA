@@ -52,7 +52,7 @@ const SignIn = () => {
       </View>
       <View style={{height: 130}}>
         <Input
-          placeholder="Username or Email"
+          placeholder="Email"
           iconName="email"
           keyboardType="email-address"
           onChangeText={text => handleOnChange(text, 'email')}
@@ -61,7 +61,7 @@ const SignIn = () => {
         />
 
         <Input
-          placeholder="Password"
+          placeholder="Mật khẩu"
           iconName="lock"
           password
           onChangeText={text => handleOnChange(text, 'password')}
@@ -76,7 +76,7 @@ const SignIn = () => {
         activeOpacity={0.8}
         onPress={validate}>
         <Text style={{fontSize: 16, fontWeight: 'bold', color: '#fff'}}>
-          Sign In
+          Đăng nhập
         </Text>
       </TouchableOpacity>
       {/* <Text style={styles.OtherSignIn}>- Or sign in with -</Text>
@@ -104,11 +104,11 @@ const SignIn = () => {
         </View>
       </TouchableOpacity> */}
       <View style={styles.footer}>
-        <Text style={{fontSize: 16}}>Do you have an account? </Text>
+        <Text style={{fontSize: 16}}>Bạn chưa có tài khoản? </Text>
         <Text
           style={{fontSize: 16, color: Color.custom, fontWeight:'600'}}
           onPress={() => navigation.navigate('SignUp')}>
-          Sign up
+          Đăng ký
         </Text>
       </View>
     </SafeAreaView>
