@@ -60,7 +60,7 @@ const Order = () => {
     </Tab.Navigator>
     );
   return (
-    <Tab.Navigator screenOptions={{tabBarActiveTintColor:Color.custom,tabBarInactiveTintColor:'#C5C5C5'}}>
+    <Tab.Navigator screenOptions={{tabBarActiveTintColor:Color.custom,tabBarInactiveTintColor:'#C5C5C5', tabBarIndicatorStyle: {backgroundColor: Color.custom}}}>
       <Tab.Screen name="Chờ" component={Waiting} />
       <Tab.Screen name="Vận chuyển" component={Shipping} />
       <Tab.Screen name="Hoàn thành" component={Complete} />
