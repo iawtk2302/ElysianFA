@@ -17,11 +17,13 @@ export default ItemInOder = ({
   setModalVisible,
   setArrProducts,
   setLoading,
+  index,
+  setIndex,
+  getAddress,
 }) => {
   const [arrProduct, setArrProduct] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
   const [address, setAddress] = useState();
-  // const [loading, setLoading] = useState(true);
 
   const changeColor = state => {
     return state === 'waiting'
@@ -173,6 +175,9 @@ export default ItemInOder = ({
       <TouchableOpacity
         onPress={() => {
           // console.log(item.userID);
+          setIndex(index)
+          // console.log(index)
+          getAddress()
           setArrProducts([]);
           loadProducts();
         }}>

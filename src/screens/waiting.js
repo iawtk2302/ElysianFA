@@ -26,6 +26,26 @@ const Waiting = () => {
   const [data, setData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [address, setAddress] = useState('');
+  const [index, setIndex] = useState(0);
+  // const getState = () => {
+  //   if(arrProducts[0].state === 'waiting')
+  //     return {checkedTime: new Date()}
+  //   else if(arrProducts[0].state === 'shipping')
+  //     return {completeTime: new Date()}
+  // }
+  // console.log(arrProducts)
+  const getAddress = async () => {
+    console.log(data[index].idAddress);
+    firestore()
+      .collection('Addresses')
+      .doc(data[index].idAddress)
+      .get()
+      .then(doc => {
+        setAddress(doc.data());
+        // setLoading(false);
+      });
+  };
   const changeStatus = async () => {
     if (convertButton() === 'Xác nhận' || convertButton() === 'Hoàn thành')
       Alert.alert('Xác nhận', 'Bạn xác nhận thay đổi trạng thái đơn hàng', [
@@ -50,7 +70,20 @@ const Waiting = () => {
                     ? 'completed'
                     : 'cancelled',
               })
-              .then(() => {setModalVisible(false)});
+              .then(() => {
+                setModalVisible(false);
+              });
+            await fireStore()
+              .collection('OrderHistories')
+              .where('orderID', '==', arrProducts[0].orderID)
+              .get()
+              .then(query => {
+                query.forEach(doc => {
+                  doc.ref.update({
+                    checkedTime: new Date(),
+                  });
+                });
+              });
           },
         },
       ]);
@@ -65,11 +98,11 @@ const Waiting = () => {
       : 'Đã hoàn thành';
   };
   useEffect(() => {
-      firestore()
+    firestore()
       .collection('Orders')
       .where('state', '==', 'waiting')
       .onSnapshot(query => {
-        setData([])
+        setData([]);
         const temp = [];
         query.forEach(doc => {
           temp.push(doc.data());
@@ -106,9 +139,12 @@ const Waiting = () => {
             <ItemInOder
               setLoading={setLoading}
               key={index}
+              index={index}
               item={item}
               setModalVisible={setModalVisible}
               setArrProducts={setArrProducts}
+              setIndex={setIndex}
+              getAddress={getAddress}
             />
           );
         })}
@@ -123,37 +159,51 @@ const Waiting = () => {
                 </View>
               );
             })}
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-                alignItems: 'flex-end',
-              }}>
-              <Text style={{marginTop: 10, fontSize: 16, marginRight: 15}}>
-                {' '}
-                Tổng cộng:
-                <Text style={{color: '#000'}}> {arrProducts[0]?.total}</Text>
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  changeStatus();
-                }}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{marginTop:15, paddingLeft: 16}}>
+                <Text style={{fontSize: 15}}>
+                  Địa chỉ: 
+                   <Text style={{color: '#000',}}> {address?.ward +
+                    ',' +
+                    address?.district +
+                    '\n' +
+                    address?.province}{' '}</Text>
+                </Text>
+              </View>
+              <View
                 style={{
-                  backgroundColor: Color.custom,
-                  // alignSelf: 'flex-end',
-                  paddingHorizontal: 10,
-                  paddingVertical: 8,
-                  borderRadius: 10,
-                  marginRight: 10,
-                  marginTop: 10,
+                  flex: 1,
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
                 }}>
-                <Text style={{color:'white'}}>{convertButton()}</Text>
-              </TouchableOpacity>
+                <Text style={{marginTop: 10, fontSize: 16, marginRight: 15}}>
+                  {' '}
+                  Tổng cộng:
+                  <Text style={{color: '#000'}}> {arrProducts[0]?.total}</Text>
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    changeStatus();
+                  }}
+                  style={{
+                    backgroundColor: Color.custom,
+                    // alignSelf: 'flex-end',
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    borderRadius: 10,
+                    marginRight: 10,
+                    marginTop: 10,
+                  }}>
+                  <Text style={{color: 'white'}}>{convertButton()}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
             <View height={70} />
           </ScrollView>
           <TouchableOpacity
             onPress={() => {
+              getAddress();
               setModalVisible(false);
             }}
             style={styles.closeBtn}>

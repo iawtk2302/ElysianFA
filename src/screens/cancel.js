@@ -18,11 +18,25 @@ import ItemInOrders from '../components/itemInOrders';
 import OderDetail from '../components/OderDetail';
 import {ActivityIndicator} from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import Color from '../common/Color';
 const Cancel = () => {
   const [arrCancel, setArrCancel] = useState([]);
   const [datacancel, setDatacancel] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [index, setIndex] = useState(0)
+  const [address, setAddress] = useState('');
+  const getAddress = async() => {
+    // console.log(data[index].idAddress)
+    firestore()
+        .collection('Addresses')
+        .doc(datacancel[index].idAddress)
+        .get()
+        .then(doc => {
+          setAddress(doc.data());
+          // setLoading(false);
+        });
+  }
   const getData = async () => {
     
     await firestore()
@@ -66,6 +80,9 @@ const Cancel = () => {
               item={item}
               setModalVisible={setModalVisible}
               setArrProducts={setArrCancel}
+              index={index}
+              getAddress={getAddress}
+              setIndex={setIndex}
             />
           );
         })}
@@ -80,26 +97,45 @@ const Cancel = () => {
                 </View>
               );
             })}
-            <View style={{flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-              <Text style={{marginTop: 10, fontSize: 16, marginRight: 15}}> Tổng cộng: 
-                <Text style={{color: '#000'}}> {arrCancel[0]?.total}</Text>
-              </Text>
-              <TouchableOpacity
-              activeOpacity={1}
-                // onPress={() => {
-                //   ToastAndroid.show("Đơn hàng đã bị hủy", 3)
-                // }}
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{marginTop:15, paddingLeft: 16}}>
+                <Text style={{fontSize: 15}}>
+                  Địa chỉ: 
+                   <Text style={{color: '#000',}}> {address?.ward +
+                    ',' +
+                    address?.district +
+                    '\n' +
+                    address?.province}{' '}</Text>
+                </Text>
+              </View>
+              <View
                 style={{
-                  backgroundColor: '#F84F4F',
-                  // alignSelf: 'flex-end',
-                  paddingHorizontal: 10,
-                  paddingVertical: 8,
-                  borderRadius: 10,
-                  marginRight: 10,
-                  marginTop: 10,
+                  flex: 1,
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
                 }}>
-                <Text>{convertButton()}</Text>
-              </TouchableOpacity>
+                <Text style={{marginTop: 10, fontSize: 16, marginRight: 15}}>
+                  {' '}
+                  Tổng cộng:
+                  <Text style={{color: '#000'}}> {arrCancel[0]?.total}</Text>
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    changeStatus();
+                  }}
+                  style={{
+                    backgroundColor: Color.custom,
+                    // alignSelf: 'flex-end',
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    borderRadius: 10,
+                    marginRight: 10,
+                    marginTop: 10,
+                  }}>
+                  <Text style={{color: 'white'}}>{convertButton()}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
             <View height={70} />
           </ScrollView>
