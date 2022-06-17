@@ -75,7 +75,7 @@ const SignIn = () => {
         style={styles.btnLogin}
         activeOpacity={0.8}
         onPress={validate}>
-        <Text style={{fontSize: 16, fontWeight: 'bold', color: '#fff'}}>
+        <Text style={{fontSize: 18, color: '#fff'}}>
           Sign In
         </Text>
       </TouchableOpacity>
@@ -134,10 +134,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   btnLogin: {
-    height: 45,
+    height: 50,
     backgroundColor: Color.custom,
     padding: 10,
     alignItems: 'center',
+    justifyContent:'center',
     borderRadius: 5,
     marginTop: 30,
   },
