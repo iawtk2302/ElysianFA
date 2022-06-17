@@ -7,13 +7,14 @@ import SignUp from '../screens/SignUp';
 import MainAdmin from '../screens/MainAdmin';
 import MainShipper from '../screens/MainShipper';
 import MainStaff from '../screens/MainStaff';
-import Order from '../screens/product';
+import Order from '../screens/Order';
 import SearchProduct from '../screens/searchProduct';
 import EditProduct from '../screens/editProduct';
 import AddProduct from '../screens/addProduct';
 import AddBanner from '../screens/addBanner';
 import Shipping from '../screens/shipping';
 import Product from '../screens/product';
+import Employee from '../screens/Employee';
 
 const Stack = createNativeStackNavigator();
 const Navigation = ({type}) => {
@@ -30,6 +31,9 @@ const Navigation = ({type}) => {
         <Stack.Screen name="EditProduct" component={EditProduct} />
         <Stack.Screen name="AddProduct" component={AddProduct} />
         <Stack.Screen name="AddBanner" component={AddBanner} />
+        <Stack.Screen name="Order" component={Order} />
+        <Stack.Screen name="Employee" component={Employee} options={{headerTitle: 'Nhân viên', headerShown: true, headerTitleAlign: 'center'}}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   )

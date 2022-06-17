@@ -21,9 +21,14 @@ const MainAdmin = () => {
       screen:"AddBanner"
     },
     {
+      title: 'Nhân viên',
+      screen: 'Employee'
+    },
+    {
       title:"Đăng xuất",
       screen:""
-    }
+    },
+    
   ]
   return (
     <View style={{alignItems:'center',justifyContent:'center',flex:1}}>

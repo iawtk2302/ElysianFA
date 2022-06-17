@@ -26,13 +26,21 @@ const SignUp = ({navigation}) => {
     lastname: '',
     username: '',
     confirmpassword: '',
+    phone: '',
+    type: ''
   });
   const [errors, setErrors] = useState({});
   const validate = () => {
+    const PhoneFormatCharacter = /[!@#$%^&*()_\-=\[\]{};':"\\|,.<>\/?]+/;
     const emailFormat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const phoneFormat = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/
     Keyboard.dismiss();
     if (!inputs.email) {
       handleErrors('please input email', 'email');
+    }
+    else if(!inputs.email.match(emailFormat)){
+      ToastAndroid.show('Email sai định dạng', 3)
+      return; 
     }
     if (!inputs.password) {
       handleErrors('Please input password', 'password');
@@ -43,27 +51,32 @@ const SignUp = ({navigation}) => {
     if (!inputs.username) {
       handleErrors('Please input username', 'username');
     }
+    if(!inputs.phone){
+      handleErrors('Nhập số điện thoại', 'phone');
+    }
+    else if(!inputs.phone.match(phoneFormat) || inputs.phone.match(PhoneFormatCharacter)){
+      ToastAndroid.show('Kiểm tra số điện thoại', 3)
+      return;
+    }
     if (!inputs.confirmpassword) {
       handleErrors('Please input confirm password', 'confirmpassword');
     }
-    if (!inputs.lastname) {
-      handleErrors('Please input lastname', 'lastname');
-    }
-    if(!inputs.email.match(emailFormat)){
-      console.log('ngu')
-      return; 
+    if(inputs.password.length < 8){
+      ToastAndroid.show('Mật khẩu phải nhiều hơn 7 ký tự', 3)
     }
     if (
       inputs.email != '' &&
       inputs.password != '' &&
       inputs.confirmpassword != '' &&
-      inputs.username != ''
+      inputs.username != '' &&
+      inputs.phone != '' &&
+      inputs.type != ''
     ) {
       if (inputs.password == inputs.confirmpassword) {
         signUp(inputs);
         // console.log(inputs)
       } else {
-        ToastAndroid.show('Check password and confirmpassword', 3);
+        ToastAndroid.show('Hai mật khẩu không giống nhau', 3);
       }
     } else {
       ToastAndroid.show('Nhập đầy đủ thông tin', 3);
@@ -101,7 +114,7 @@ const SignUp = ({navigation}) => {
           onFocus={() => handleErrors(null, 'lastname')}
         />
       </View> */}
-      <View style={{height: 250, marginTop: 20}}>
+      <View style={{height: 350, marginTop: 20}}>
         <Input
           placeholder="Tên của bạn"
           onChangeText={text => handleOnChange(text, 'username')}
@@ -114,6 +127,13 @@ const SignUp = ({navigation}) => {
           onChangeText={text => handleOnChange(text, 'email')}
           error={errors.email}
           onFocus={() => handleErrors(null, 'email')}
+        />
+        <Input
+          placeholder="Số điện thoại"
+          keyboardType="numeric"
+          onChangeText={text => handleOnChange(text, 'phone')}
+          error={errors.phone}
+          onFocus={() => handleErrors(null, 'phone')}
         />
         <Input
           placeholder="Mật khẩu"

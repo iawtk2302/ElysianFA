@@ -44,7 +44,7 @@ const OderDetail = ({item}) => {
               <Text style={{color: '#000'}}> {item.amount}</Text>
             </Text>
             <Text>Giá: 
-              <Text style={{color: '#000'}}> {item.product.price}</Text>
+              <Text style={{color: '#000'}}> {parseInt(item.product.price) + parseInt(item?.size.price)}</Text>
             </Text>
           </View>
         </View>
@@ -78,7 +78,7 @@ const OderDetail = ({item}) => {
               <Text>{element.name}</Text>
               <Text>
                 Giá:
-                <Text style={{color: '#000'}}> {element.price}</Text>
+                <Text style={{color: '#000'}}> {parseInt(element.price)}</Text>
               </Text>
             </View>
           </View>

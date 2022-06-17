@@ -73,69 +73,68 @@ export default ItemInOder = ({
           const size = {
             name: item1.size,
             price:
-              item1.size === 'L' ? '8000' : item1.size === 'M' ? '16000' : '0',
+              item1.size === 'M' ? '8000' : item1.size === 'L' ? '16000' : '0',
           };
           item1.state = item.state;
           item1.product = product;
           item1.size = size;
-          item1.total = item.totalCost
+          item1.total = item.totalCost;
           // tempProducts.push(docSnap.data());
           setLoading(false);
-          
         });
     }
     setArrProducts(temp);
     setModalVisible(true);
   };
   const changeStatus = async () => {
-    if(convertButton() === 'Xác nhận' || convertButton() === 'Hoàn thành')
-    Alert.alert('Xác nhận', 'Bạn xác nhận thay đổi trạng thái đơn hàng', [
-      {
-        text: 'Không',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {
-        text: 'Có',
-        onPress: async () => {
-          await fireStore()
-            .collection('Orders')
-            .doc(item.orderID)
-            .update({
-              state:
-                convertButton() === 'Xác nhận'
-                  ? 'shipping'
-                  : convertButton() === 'Hoàn thành'
-                  ? 'completed'
-                  : convertButton() === 'Đã hoàn thành'
-                  ? 'completed'
-                  : 'cancelled',
-            })
-            .then(() => {});
+    if (convertButton() === 'Xác nhận' || convertButton() === 'Hoàn thành')
+      Alert.alert('Xác nhận', 'Bạn xác nhận thay đổi trạng thái đơn hàng', [
+        {
+          text: 'Không',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
         },
-      },
-    ]);
+        {
+          text: 'Có',
+          onPress: async () => {
+            await fireStore()
+              .collection('Orders')
+              .doc(item.orderID)
+              .update({
+                state:
+                  convertButton() === 'Xác nhận'
+                    ? 'shipping'
+                    : convertButton() === 'Hoàn thành'
+                    ? 'completed'
+                    : convertButton() === 'Đã hoàn thành'
+                    ? 'completed'
+                    : 'cancelled',
+              })
+              .then(() => {});
+          },
+        },
+      ]);
   };
 
   useEffect(() => {
     let isMounted = true;
     Promise.all([
       fireStore()
-      .collection('Users')
-      .doc(item.userID)
-      .get()
-      .then(doc => {
-        if (isMounted) setUserInfo(doc.data());
-      }),
-    fireStore()
-      .collection('Addresses')
-      .doc(item.idAddress)
-      .get()
-      .then(doc => {
-        if (isMounted) setAddress(doc.data());
-      }),
-    ])
-    // setLoading(false)
+        .collection('Users')
+        .doc(item.userID)
+        .get()
+        .then(doc => {
+          if (isMounted) setUserInfo(doc.data());
+        }),
+      fireStore()
+        .collection('Addresses')
+        .doc(item.idAddress)
+        .get()
+        .then(doc => {
+          if (isMounted) setAddress(doc.data());
+          // setLoading(false);
+        }),
+    ]);
     return () => {
       isMounted = false;
     };
@@ -179,7 +178,7 @@ export default ItemInOder = ({
               fontWeight: '500',
               fontSize: 15,
             }}
-            numberOfLines={2}>
+            numberOfLines={3}>
             {address?.ward + ',' + address?.district + '\n' + address?.province}
             {/* {userInfo?.phoneNumber} */}
           </Text>

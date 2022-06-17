@@ -69,6 +69,7 @@ const Waiting = () => {
       .collection('Orders')
       .where('state', '==', 'waiting')
       .onSnapshot(query => {
+        setData([])
         const temp = [];
         query.forEach(doc => {
           temp.push(doc.data());

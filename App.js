@@ -10,6 +10,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  LogBox,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -34,6 +35,7 @@ const App = () => {
 
   useEffect(() => {
     SplashScreen.hide();
+    LogBox.ignoreAllLogs()
     // console.log("mounded")
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber;

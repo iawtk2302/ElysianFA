@@ -26,7 +26,11 @@ const addUser = async inputs => {
   .set({
     username: inputs.username,
     email: inputs.email,
-    type: inputs.type
+    type: inputs.type,
+    approved: false,
+    phone: inputs.phone,
+    uid: auth().currentUser.uid,
+    request: inputs.type,
   })
 
 };

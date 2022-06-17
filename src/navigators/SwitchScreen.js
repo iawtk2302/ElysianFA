@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, Button, StyleSheet, Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
@@ -8,10 +8,12 @@ import MainAdmin from '../screens/MainAdmin';
 import MainShipper from '../screens/MainShipper';
 import MainStaff from '../screens/MainStaff';
 import Navigation from './Navigation';
+import { signOut } from '../utils/Auth';
 const SwitchScreen = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isShipper, setIsShipper] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [Approved, setApproved] = useState(false)
   useEffect(() => {
     let isMounted = true;
     firestore()
@@ -19,6 +21,9 @@ const SwitchScreen = () => {
       .doc(auth().currentUser.uid)
       .get()
       .then(doc => {
+        console.log(doc)
+        if(doc.data()?.approved === true)
+          setApproved(true)
         if (doc.data().type === 'admin') {
           if (isMounted) setIsAdmin(true);
         } else if (doc.data().type === 'shipper')
@@ -33,6 +38,15 @@ const SwitchScreen = () => {
   if (loading) {
     return <ActivityIndicator />;
   }
+  if(!Approved)
+    return (
+      <View>
+        <Text>Bạn chưa được chấp nhận</Text>
+        <Button onPress={signOut} title='Logout'>
+          Logout
+        </Button>
+      </View>
+    )
   if(isAdmin)
     return(
       <Navigation type={'MainAdmin'}/>
