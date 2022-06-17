@@ -87,6 +87,12 @@ export default ItemInOder = ({
     setArrProducts(temp);
     setModalVisible(true);
   };
+  const getState = () => {
+    if(item.state === 'waiting')
+      return {checkedTime: new Date()}
+    else if(item.state === 'shipping')
+      return {completeTime: new Date()}
+  }
   const changeStatus = async () => {
     if (convertButton() === 'Xác nhận' || convertButton() === 'Hoàn thành')
       Alert.alert('Xác nhận', 'Bạn xác nhận thay đổi trạng thái đơn hàng', [
@@ -98,7 +104,8 @@ export default ItemInOder = ({
         {
           text: 'Có',
           onPress: async () => {
-            await fireStore()
+            Promise.all([
+              await fireStore()
               .collection('Orders')
               .doc(item.orderID)
               .update({
@@ -111,7 +118,18 @@ export default ItemInOder = ({
                     ? 'completed'
                     : 'cancelled',
               })
-              .then(() => {});
+              .then(() => {}),
+              await fireStore()
+              .collection('OrderHistories')
+              .where('orderID', '==', item.orderID)
+              .get()
+              .then(query => {
+                query.forEach(doc => {
+                  doc.ref.update(getState())
+                })
+              }),
+              
+            ])
           },
         },
       ]);
@@ -127,14 +145,14 @@ export default ItemInOder = ({
         .then(doc => {
           if (isMounted) setUserInfo(doc.data());
         }),
-      fireStore()
-        .collection('Addresses')
-        .doc(item.idAddress)
-        .get()
-        .then(doc => {
-          if (isMounted) setAddress(doc.data());
-          // setLoading(false);
-        }),
+      // fireStore()
+      //   .collection('Addresses')
+      //   .doc(item.idAddress)
+      //   .get()
+      //   .then(doc => {
+      //     if (isMounted) setAddress(doc.data());
+      //     // setLoading(false);
+      //   }),
     ]);
     return () => {
       isMounted = false;
@@ -161,9 +179,9 @@ export default ItemInOder = ({
         <Text style={{alignSelf: 'center', color: '#000', fontSize: 16}}>
           #{item?.orderID}
         </Text>
-        <Text style={{marginVertical:4}}>Tên: {userInfo?.name}</Text>
-        <Text style={{marginVertical:4}}>Tổng cộng: {parseInt(item.totalCost)}đ</Text>
-        <Text style={{marginVertical:4}}>Ngày tạo: {converTimeToFB(item.createdAt)}</Text>
+        <Text style={{}}>Tên: {userInfo?.name}</Text>
+        <Text style={{marginVertical:2}}>Tổng cộng: {parseInt(item.totalCost)}đ</Text>
+        <Text style={{}}>Ngày tạo: {converTimeToFB(item.createdAt)}</Text>
         <View
           style={{height: 0.6, backgroundColor: '#ccc', marginTop: 10}}></View>
         <View
@@ -179,8 +197,8 @@ export default ItemInOder = ({
               fontSize: 15,
             }}
             numberOfLines={3}>
-            {address?.ward + ',' + address?.district + '\n' + address?.province}
-            {/* {userInfo?.phoneNumber} */}
+            {/* {address?.ward + ',' + address?.district + '\n' + address?.province} */}
+            {userInfo?.phoneNumber}
           </Text>
           <TouchableOpacity
             activeOpacity={
