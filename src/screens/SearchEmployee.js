@@ -46,7 +46,7 @@ const SearchEmployee = () => {
     inputRef.current.focus();
   }, []);
   const convertPosition = text => {
-    console.log(text)
+    // console.log(text)
     const staff = 'nhan vien';
     const shipper = 'van chuyen';
     const admin = 'quan ly';

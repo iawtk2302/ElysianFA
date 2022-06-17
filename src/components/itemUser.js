@@ -75,11 +75,7 @@ const ItemUser = ({item, index}) => {
         }}>
         <View>
           {isAproved === false ? (
-<<<<<<< HEAD
-            <Text style={{color: Color.custom}}>Yêu cầu: {item?.request}</Text>
-=======
-            <Text style={{color: '#4FC4F5'}}>Yêu cầu: {convertPosition(item?.request)}</Text>
->>>>>>> Dangki_Phanquyen
+            <Text style={{color: Color.custom}}>Yêu cầu: {convertPosition(item?.request)}</Text>
           ) : (
             <Text style={{color: Color.custom}}>Vị trí:{items.find(option => option.value === value).label}</Text>
           )}

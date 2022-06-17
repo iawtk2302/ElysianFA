@@ -23,14 +23,6 @@ const Employee = () => {
       isMounted = false;
     };
   }, []);
-  const filterUser = () => {
-    const result = arrUser.filter(checkName());
-    console.log(result);
-  };
-  function checkName(item) {
-    console.log(item);
-    return item >= 18;
-  }
   // const checkName = (item) => {
   //   console.log(item)
   //   return item?.username.includes('a')
