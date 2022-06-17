@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+import {StyleSheet, Text, View, Button} from 'react-native';
+import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
 import MainAdmin from '../screens/MainAdmin';
@@ -15,12 +15,15 @@ import AddBanner from '../screens/addBanner';
 import Shipping from '../screens/shipping';
 import Product from '../screens/product';
 import Employee from '../screens/Employee';
-
+import Icon from 'react-native-vector-icons/Ionicons'
+import SearchEmployee from '../screens/SearchEmployee';
 const Stack = createNativeStackNavigator();
 const Navigation = ({type}) => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName={type}>
+      <Stack.Navigator
+        screenOptions={{headerShown: false}}
+        initialRouteName={type}>
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="MainAdmin" component={MainAdmin} />
@@ -32,13 +35,24 @@ const Navigation = ({type}) => {
         <Stack.Screen name="AddProduct" component={AddProduct} />
         <Stack.Screen name="AddBanner" component={AddBanner} />
         <Stack.Screen name="Order" component={Order} />
-        <Stack.Screen name="Employee" component={Employee} options={{headerTitle: 'Nhân viên', headerShown: true, headerTitleAlign: 'center'}}/>
-
+        <Stack.Screen name="SearchEmployee" component={SearchEmployee} />
+        <Stack.Screen
+          name="Employee"
+          component={Employee}
+          options={({ navigation, route }) =>({
+            headerTitle: 'Nhân viên',
+            headerShown: true,
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Icon name='search-outline' size={25} onPress={() => {navigation.navigate('SearchEmployee', {data: route})}}/>
+            ),
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

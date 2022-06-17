@@ -46,7 +46,7 @@ const ItemUser = ({item, index}) => {
   }, []);
   const convertPosition = () => {
     if(item?.request === 'staff')
-      return 'Nhân viên'
+      return 'nhân viên'
     else if(item?.request === 'shipper')
       return 'vận chuyển'
     else return 'quản lý'
@@ -74,7 +74,7 @@ const ItemUser = ({item, index}) => {
         }}>
         <View>
           {isAproved === false ? (
-            <Text style={{color: '#4FC4F5'}}>Yêu cầu: {item?.request}</Text>
+            <Text style={{color: '#4FC4F5'}}>Yêu cầu: {convertPosition(item?.request)}</Text>
           ) : (
             <Text style={{color: '#4FC4F5'}}>Vị trí:{items.find(option => option.value === value).label}</Text>
           )}
