@@ -39,6 +39,7 @@ const App = () => {
     // console.log("mounded")
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber;
+
   }, []);
 
   if (isLoading) {

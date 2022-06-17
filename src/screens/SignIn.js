@@ -79,7 +79,7 @@ const SignIn = () => {
           Sign In
         </Text>
       </TouchableOpacity>
-      <Text style={styles.OtherSignIn}>- Or sign in with -</Text>
+      {/* <Text style={styles.OtherSignIn}>- Or sign in with -</Text>
       <TouchableOpacity
         style={styles.gg}
         activeOpacity={0.7}
@@ -102,7 +102,7 @@ const SignIn = () => {
             Sign in with facebook
           </Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View style={styles.footer}>
         <Text style={{fontSize: 16}}>Do you have an account? </Text>
         <Text
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 21,
+    marginTop: 50,
   },
 });
 export default SignIn;
