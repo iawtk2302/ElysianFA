@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   AppName: {
     fontSize: 64,
     fontFamily: Font,
+    color:Color.custom
   },
   forgotpassword: {
     alignSelf: 'flex-end',

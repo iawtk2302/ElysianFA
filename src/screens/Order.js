@@ -31,7 +31,7 @@ const Order = () => {
   useEffect(() => {
     let isMounted = true;
     firestore()
-      .collection('Users')
+      .collection('UserAdmin')
       .doc(auth().currentUser.uid)
       .get()
       .then(doc => {

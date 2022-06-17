@@ -158,7 +158,7 @@ const SignUp = ({navigation}) => {
         // badgeColors='#F2F2F2'
         setItems={setItems}
         // closeOnBackPressed='#F2F2F2'
-        style={{borderColor: '#C5C5C5', }}
+        style={{borderColor: '#C5C5C5', backgroundColor:'#F5F5F5'}}
         onChangeValue={() => {
           setInputs(prevState => ({...prevState, ['type']: value}));
           // setGenderFill(true);
@@ -168,7 +168,7 @@ const SignUp = ({navigation}) => {
         style={styles.btnSignUp}
         activeOpacity={0.8}
         onPress={validate}>
-        <Text style={{fontWeight: 'bold', fontSize: 16, color: '#fff'}}>
+        <Text style={{ fontSize: 16, color: '#fff'}}>
           Đăng ký
         </Text>
       </TouchableOpacity>
@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingTop: 20,
+    backgroundColor:'#F5F5F5'
   },
   back: {
     height: 24,
@@ -211,5 +212,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     marginTop: 30,
+    height:50,
+    justifyContent:'center'
   },
 });
