@@ -13,6 +13,7 @@ import Input from '../components/input';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useNavigation} from '@react-navigation/native';
 import { Font } from '../common/Font';
+import Color from '../common/Color';
 const SignIn = () => {
   const navigation = useNavigation();
   GoogleSignin.configure({
@@ -45,7 +46,7 @@ const SignIn = () => {
     setInputs(prevState => ({...prevState, [input]: text}));
   };
   return (
-    <SafeAreaView style={{paddingHorizontal: 16}}>
+    <SafeAreaView style={{paddingHorizontal: 16,backgroundColor:'white',flex:1}}>
       <View style={styles.header}>
         <Text style={styles.AppName}>Elysian</Text>
       </View>
@@ -105,7 +106,7 @@ const SignIn = () => {
       <View style={styles.footer}>
         <Text style={{fontSize: 16}}>Do you have an account? </Text>
         <Text
-          style={{fontSize: 16, color: '#4FC4F5'}}
+          style={{fontSize: 16, color: Color.custom, fontWeight:'600'}}
           onPress={() => navigation.navigate('SignUp')}>
           Sign up
         </Text>
@@ -128,12 +129,12 @@ const styles = StyleSheet.create({
   forgotpassword: {
     alignSelf: 'flex-end',
     marginTop: -10,
-    color: '#4FC4F5',
+    color: Color.custom,
     fontSize: 16,
   },
   btnLogin: {
     height: 45,
-    backgroundColor: '#4FC4F5',
+    backgroundColor: Color.custom,
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#ffff',
     borderRadius: 5,
-    borderColor: '#4FC4F5',
+    borderColor: "#C5C5C5",
     borderWidth: 1.5,
     height: 42,
     alignItems: 'center',

@@ -12,6 +12,7 @@ import React, {useState} from 'react';
 import {signUp} from '../utils/Auth';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/input';
+import Color from '../common/Color';
 const SignUp = ({navigation}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
@@ -90,12 +91,6 @@ const SignUp = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image source={require('../assets/back.png')} style={styles.back} />
-        </TouchableOpacity>
-        <Text style={styles.lbSignUp}>Đăng ký</Text>
-      </View>
       <Text style={styles.lbCreate}>Tạo tài khoản</Text>
       {/* <View style={styles.name_lastname}>
         <Input
@@ -163,7 +158,7 @@ const SignUp = ({navigation}) => {
         // badgeColors='#F2F2F2'
         setItems={setItems}
         // closeOnBackPressed='#F2F2F2'
-        style={{borderColor: '#4FC4F5', }}
+        style={{borderColor: '#C5C5C5', }}
         onChangeValue={() => {
           setInputs(prevState => ({...prevState, ['type']: value}));
           // setGenderFill(true);
@@ -200,7 +195,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   lbCreate: {
-    marginTop: 50,
+    marginTop: 20,
     color: '#000',
     fontSize: 26,
     fontWeight: 'bold',
@@ -211,7 +206,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   btnSignUp: {
-    backgroundColor: '#4FC4F5',
+    backgroundColor: Color.custom,
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,

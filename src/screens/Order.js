@@ -21,6 +21,7 @@ import Waiting from './waiting';
 import Shipping from './shipping';
 import Complete from './complete';
 import Cancel from './cancel';
+import Color from '../common/Color';
 const Tab = createMaterialTopTabNavigator();
 const Order = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -59,7 +60,7 @@ const Order = () => {
     </Tab.Navigator>
     );
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{tabBarActiveTintColor:Color.custom,tabBarInactiveTintColor:'#C5C5C5'}}>
       <Tab.Screen name="Chờ" component={Waiting} />
       <Tab.Screen name="Vận chuyển" component={Shipping} />
       <Tab.Screen name="Hoàn thành" component={Complete} />

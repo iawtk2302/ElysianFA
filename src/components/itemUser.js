@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import Color from '../common/Color';
 const ItemUser = ({item, index}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(
@@ -74,9 +75,9 @@ const ItemUser = ({item, index}) => {
         }}>
         <View>
           {isAproved === false ? (
-            <Text style={{color: '#4FC4F5'}}>Yêu cầu: {item?.request}</Text>
+            <Text style={{color: Color.custom}}>Yêu cầu: {item?.request}</Text>
           ) : (
-            <Text style={{color: '#4FC4F5'}}>Vị trí:{items.find(option => option.value === value).label}</Text>
+            <Text style={{color: Color.custom}}>Vị trí:{items.find(option => option.value === value).label}</Text>
           )}
         </View>
         <View>

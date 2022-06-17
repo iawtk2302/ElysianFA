@@ -20,7 +20,7 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import fireauth from '@react-native-firebase/auth';
-
+import NumberFormat from 'react-number-format';
 const AddProduct = () => {
   const navigation = useNavigation();
   const [name, setName] = useState('');

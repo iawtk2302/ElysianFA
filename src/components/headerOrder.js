@@ -13,9 +13,12 @@ const HeaderOrder = ({data}) => {
   }
   return (
     <View style={styles.container}>
-      <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
-        Đặt hàng
+      <View style={{flexDirection:'row', alignItems:'center'}}>
+      <Icon name="chevron-back-outline" size={26} color="white"  style={{marginRight:4}} onPress={()=>{Navigation.goBack()}}/>
+      <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>
+        Thức uống
       </Text>
+      </View>
       <View style={{flexDirection:'row'}}>
         <Icon name="search-outline" size={26} color="white"  style={{marginRight:15}} onPress={navSearch}/>
         <Icon name="add-outline" size={26} color="white"  onPress={navAdd}/>

@@ -11,6 +11,7 @@ import React, {useState, useEffect} from 'react';
 import fireStore from '@react-native-firebase/firestore';
 import converTimeToFB from '../utils/convertTime';
 import OderDetail from './OderDetail';
+import Color from '../common/Color';
 export default ItemInOder = ({
   item,
   setModalVisible,
@@ -160,9 +161,9 @@ export default ItemInOder = ({
         <Text style={{alignSelf: 'center', color: '#000', fontSize: 16}}>
           #{item?.orderID}
         </Text>
-        <Text style={{fontSize: 16}}>Tên: {userInfo?.name}</Text>
-        <Text>Tổng cộng: {parseInt(item.totalCost)}đ</Text>
-        <Text>Ngày tạo: {converTimeToFB(item.createdAt)}</Text>
+        <Text style={{marginVertical:4}}>Tên: {userInfo?.name}</Text>
+        <Text style={{marginVertical:4}}>Tổng cộng: {parseInt(item.totalCost)}đ</Text>
+        <Text style={{marginVertical:4}}>Ngày tạo: {converTimeToFB(item.createdAt)}</Text>
         <View
           style={{height: 0.6, backgroundColor: '#ccc', marginTop: 10}}></View>
         <View
@@ -174,7 +175,6 @@ export default ItemInOder = ({
           }}>
           <Text
             style={{
-              color: changeColor(item.state),
               fontWeight: '500',
               fontSize: 15,
             }}
@@ -187,7 +187,7 @@ export default ItemInOder = ({
               item.state === 'cancelled' || item.state === 'completed' ? 1 : 0.5
             }
             style={{
-              backgroundColor: 'red',
+              backgroundColor: Color.custom,
               height: 30,
               justifyContent: 'center',
               borderRadius: 5,

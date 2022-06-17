@@ -9,7 +9,7 @@ const Input = ({label, iconName, error, password, ...props}) => {
         style={[
           style.inputContainer,
           {
-            borderColor: error ? 'red' : '#4FC4F5',
+            borderColor: error ? '#DB324C' : '#C5C5C5',
             alignItems: 'center',
           },
         ]}>
@@ -30,7 +30,7 @@ const Input = ({label, iconName, error, password, ...props}) => {
           />
         )}
       </View>
-      {error && <Text style={{color: 'red', fontSize: 12}}> {error}</Text>}
+      {error && <Text style={{color: '#DB324C', fontSize: 12}}> {error}</Text>}
     </View>
   );
 };
@@ -48,7 +48,7 @@ const style = StyleSheet.create({
     paddingHorizontal: 10,
     borderWidth: 1.5,
     borderRadius: 5,
-    borderColor: '#4FC4F5',
+    borderColor: '#C5C5C5',
   },
 });
 

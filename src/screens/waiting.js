@@ -19,6 +19,7 @@ import OderDetail from '../components/OderDetail';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {ActivityIndicator} from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import Color from '../common/Color';
 const Tab = createMaterialTopTabNavigator();
 const Waiting = () => {
   const [arrProducts, setArrProducts] = useState([]);
@@ -26,7 +27,6 @@ const Waiting = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const changeStatus = async () => {
-    console.log(arrProducts[0].orderID);
     if (convertButton() === 'Xác nhận' || convertButton() === 'Hoàn thành')
       Alert.alert('Xác nhận', 'Bạn xác nhận thay đổi trạng thái đơn hàng', [
         {
@@ -65,7 +65,7 @@ const Waiting = () => {
       : 'Đã hoàn thành';
   };
   useEffect(() => {
-    firestore()
+      firestore()
       .collection('Orders')
       .where('state', '==', 'waiting')
       .onSnapshot(query => {
@@ -139,7 +139,7 @@ const Waiting = () => {
                   changeStatus();
                 }}
                 style={{
-                  backgroundColor: '#F84F4F',
+                  backgroundColor: Color.custom,
                   // alignSelf: 'flex-end',
                   paddingHorizontal: 10,
                   paddingVertical: 8,
@@ -147,7 +147,7 @@ const Waiting = () => {
                   marginRight: 10,
                   marginTop: 10,
                 }}>
-                <Text>{convertButton()}</Text>
+                <Text style={{color:'white'}}>{convertButton()}</Text>
               </TouchableOpacity>
             </View>
             <View height={70} />

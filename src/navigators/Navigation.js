@@ -25,7 +25,7 @@ const Navigation = ({type}) => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName={type}>
         <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:true,headerTitle:'Đăng ký'}}/>
         <Stack.Screen name="MainAdmin" component={MainAdmin} />
         <Stack.Screen name="MainShipper" component={MainShipper} />
         <Stack.Screen name="MainStaff" component={MainStaff} />
