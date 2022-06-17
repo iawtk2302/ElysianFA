@@ -9,7 +9,6 @@ import {
     ScrollView,
     TouchableOpacity,
     ToastAndroid,
-    Alert,
   } from 'react-native';
   import React, {useState,useEffect} from 'react';
   import {useNavigation, useRoute} from '@react-navigation/native';
@@ -19,18 +18,20 @@ import {
   import firestore from '@react-native-firebase/firestore';
   import storage from '@react-native-firebase/storage';
   import fireauth from '@react-native-firebase/auth';
-  
-  const AddBanner = () => {
+  import DatePicker from 'react-native-date-picker'
+  const AddVoucherTotal = () => {
     const navigation = useNavigation();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [condition,setCondition]=useState('');
+    const [discount,setDiscount]=useState('');
     const [image, setImage] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
     const [enable, setEnable] = useState(false);
-    const createAlert = title =>
-      Alert.alert('Có lỗi', title, [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
+    const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(false)
+    const [date1, setDate1] = useState(new Date())
+    const [open1, setOpen1] = useState(false)
     const openCamera = () => {
       ImagePicker.openCamera({
         height: 350,
@@ -54,37 +55,66 @@ import {
         .catch(e => {});
     };
     useEffect(()=>{
-      if(title!=''&&content!=''&&image!=null)
+      if(title!=''&&content!=''&&discount!=''&&condition!=''&&image!=null)
         setEnable(true)
       else
         setEnable(false)
-    },[title,content,image])
+    },[title,content,image,condition,discount])
     const add=async()=>{
     const rd=Math.floor(Math.random() * 1000) + 1;
     const id=fireauth().currentUser.uid+rd+title;
     const uri = image;
     if(image!=null){
       try {
-        await storage().ref(`imageBanner/${title+'.png'}`).putFile(uri)
+        await storage().ref(`imageVoucher/${title+'.png'}`).putFile(uri)
     } catch (e) {
         console.log(e)
     }
     await  firestore()
-    .collection('Banners')
+    .collection('Vouchers')
     .doc(id)
     .set({
       title:title,
       content:content,
-      linkImage:await storage().ref(`imageBanner/${title+'.png'}`).getDownloadURL(),
+      image:await storage().ref(`imageVoucher/${title+'.png'}`).getDownloadURL(),
+      discount:parseInt(discount),
+      condition:parseInt(condition),
+      type:'total',
+      start:date,
+      end:date1,
     })
     .then(() => {
+      setEnable(false)
+      setImage(null)
       setTitle('')
       setContent('')
-      setImage(null)
-      setEnable(false)
+      setCondition('')
+      setDiscount('')
+      setDate(new Date())
+      setDate1(new Date())
       ToastAndroid.show('Thêm thành công', ToastAndroid.LONG);
     });
   }}
+  const onChangeCondition=(e)=>{
+    const reg = new RegExp('^[0-9]+$');
+    if(reg.test(e))
+    {
+        if(parseInt(e)<=500000&&parseInt(e)>0)
+        setCondition(e)
+    }
+    if(e=='')
+    setCondition(e)
+  }
+  const onChangeDiscount=(e)=>{
+    const reg = new RegExp('^[0-9]+$');
+    if(reg.test(e))
+    {
+        if(parseInt(e)<=100000&&parseInt(e)>0)
+        setDiscount(e)
+    }
+    if(e=='')
+    setDiscount(e)
+  }
     return (
       <KeyboardAvoidingView
         behavior="padding"
@@ -114,7 +144,7 @@ import {
                 <Image
                   source={{uri: image}}
                   style={{height: 250, width: 400}}
-                  resizeMode="stretch"
+                  resizeMode="center"
                 />
                 <Icon
                   name="camera-outline"
@@ -139,33 +169,75 @@ import {
             )}
           </View>
           <View style={{paddingHorizontal: 16, paddingTop: 10}}>
-            <Text style={{color: 'black'}}>Tiêu đề quảng cáo</Text>
+            <Text style={{color: 'black'}}>Tiêu đề khuyến mãi</Text>
             <TextInput
               value={title}
               style={{
                 borderColor: '#C5C5C5',
                 borderWidth: 1,
                 borderRadius: 10,
-                marginTop: 10,
+                marginVertical:10
               }}
-              placeholder="Nhập tiêu đề quảng cáo"
+              placeholder="Nhập tiêu đề khuyến mãi"
               onChangeText={setTitle}
             />
-            <Text style={{color: 'black', marginTop: 8}}>Nội dung</Text>
+            <Text style={{color: 'black'}}>Nội dung</Text>
             <TextInput
               value={content}
               style={{
                 borderColor: '#C5C5C5',
                 borderWidth: 1,
                 borderRadius: 10,
-                marginTop: 10,
-                height:200,
-                textAlignVertical:'top'
+                height:150,
+                textAlignVertical:'top',
+                marginVertical:10
               }}
               multiline={true}
               placeholder="Nhập nội dung"
               onChangeText={setContent}
             />
+            <Text style={{color: 'black'}}>Điều kiện tổng số tiền hóa đơn</Text>
+            <TextInput
+              value={condition}
+              style={{
+                borderColor: '#C5C5C5',
+                borderWidth: 1,
+                borderRadius: 10,
+                marginVertical:10
+              }}
+              maxLength={6}
+              keyboardType='number-pad'
+              placeholder="Nhập điều kiện tổng số tiền hóa đơn"
+              onChangeText={onChangeCondition}
+            />
+            <Text style={{color: 'black'}}>Số tiền khuyến mãi</Text>
+            <TextInput
+              value={discount}
+              keyboardType='number-pad'
+              style={{
+                borderColor: '#C5C5C5',
+                borderWidth: 1,
+                borderRadius: 10,
+                marginVertical:10
+              }}
+              maxLength={6}
+              placeholder="Nhập số tiền khuyến mãi"
+              onChangeText={onChangeDiscount}
+            />
+            <Text style={{color: 'black'}}>Thời gian bắt đầu</Text>
+            <View style={{flexDirection:'row', borderColor:'#C5C5C5',borderWidth:1, borderRadius:10,alignItems:'center',marginVertical:10}}>
+                <View style={{height:45,backgroundColor:'white', borderRadius:10,flex:0.95,justifyContent:'center'}}>
+                    <Text style={{marginLeft:10}}>{date.toUTCString()}</Text>
+                </View>
+                <Icon name='calendar-outline' size={24} onPress={()=>{setOpen(true)}}/>
+            </View>
+            <Text style={{color: 'black'}}>Thời gian kết thúc</Text>
+            <View style={{flexDirection:'row', borderColor:'#C5C5C5',borderWidth:1, borderRadius:10,alignItems:'center',marginVertical:10}}>
+                <View style={{height:45,backgroundColor:'white', borderRadius:10,flex:0.95,justifyContent:'center'}}>
+                    <Text style={{marginLeft:10}}>{date1.toUTCString()}</Text>
+                </View>
+                <Icon name='calendar-outline' size={24} onPress={()=>{setOpen1(true)}}/>
+            </View>
             <TouchableOpacity
               style={{
                 backgroundColor: enable?Color.custom:'#C5C5C5',
@@ -254,11 +326,37 @@ import {
             </View>
           </View>
         </Modal>
+        <DatePicker
+        modal
+        minimumDate={date}
+        open={open}
+        date={date}
+        onConfirm={(date) => {
+          setOpen(false)
+          setDate(date)
+        }}
+        onCancel={() => {
+          setOpen(false)
+        }}
+      />
+      <DatePicker
+        modal
+        minimumDate={date1}
+        open={open1}
+        date={date1}
+        onConfirm={(date) => {
+          setOpen1(false)
+          setDate1(date)
+        }}
+        onCancel={() => {
+          setOpen1(false)
+        }}
+      />
       </KeyboardAvoidingView>
     );
   }
   
-  export default AddBanner;
+  export default AddVoucherTotal;
   
   const styles = StyleSheet.create({});
   

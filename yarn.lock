@@ -5795,6 +5795,11 @@ react-native-codegen@^0.0.17:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-date-picker@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-4.2.2.tgz#07fb8a9021fb48ef9a20b043d33c14e858220883"
+  integrity sha512-x0jxWbJXKDXivRDwsUx58tKOxe719XoVqqq6UzMSYSsTiPL2i13r7PyDxop3f3et/62qbcMgeswl+/CLdX6+Eg==
+
 react-native-dropdown-picker@^5.4.2:
   version "5.4.2"
   resolved "https://registry.yarnpkg.com/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.2.tgz#3d17de3d8a84cb8e74a2ffda6be417d287245b81"

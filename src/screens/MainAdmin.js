@@ -14,7 +14,7 @@ const MainAdmin = () => {
     },
     {
       title:"Khuyến mãi",
-      screen:"Order"
+      screen:"Voucher"
     },
     {
       title:"Quảng cáo",

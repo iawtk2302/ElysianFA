@@ -22,6 +22,7 @@
     "@react-navigation/native-stack": "^6.6.2",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-date-picker": "^4.2.2",
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-image-crop-picker": "^0.37.3",
     "react-native-pager-view": "^5.4.24",
