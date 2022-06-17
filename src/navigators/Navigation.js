@@ -14,6 +14,10 @@ import AddProduct from '../screens/addProduct';
 import AddBanner from '../screens/addBanner';
 import Shipping from '../screens/shipping';
 import Product from '../screens/product';
+import Voucher from '../screens/voucher';
+import AddVoucher from '../screens/voucheramount';
+import AddVoucherAmount from '../screens/voucheramount';
+import AddVoucherTotal from '../screens/voucherTotal';
 
 const Stack = createNativeStackNavigator();
 const Navigation = ({type}) => {
@@ -30,6 +34,9 @@ const Navigation = ({type}) => {
         <Stack.Screen name="EditProduct" component={EditProduct} />
         <Stack.Screen name="AddProduct" component={AddProduct} />
         <Stack.Screen name="AddBanner" component={AddBanner} />
+        <Stack.Screen name="Voucher" component={Voucher} options={{headerShown:true,headerTitle:'Thêm khuyến mãi'}}/>
+        <Stack.Screen name="AddVoucherAmount" component={AddVoucherAmount} />
+        <Stack.Screen name="AddVoucherTotal" component={AddVoucherTotal} />
       </Stack.Navigator>
     </NavigationContainer>
   )

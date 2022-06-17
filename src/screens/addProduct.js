@@ -100,7 +100,11 @@ const AddProduct = () => {
     type:value
   })
   .then(() => {
-    navigation.push('Product')
+    setName('')
+    setPrice('')
+    setImage(null)
+    setEnable(false)
+    ToastAndroid.show('Thêm thành công', ToastAndroid.LONG);
   });
 }}
   return (
