@@ -83,6 +83,10 @@ const AddProduct = () => {
   const rd=Math.floor(Math.random() * 1000) + 1;
   const id=fireauth().currentUser.uid+rd;
   const uri = image;
+  if(price<10000||price>100){
+    createAlert("Giá thức uống tối thiểu là 10.000đ")
+    return
+  }
   if(image!=null){
     try {
       await storage().ref(`imageProduct/${name+'.png'}`).putFile(uri)

@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ToastAndroid,
+  Alert
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -60,6 +61,10 @@ const EditProduct = () => {
       })
       .catch(e => {});
   };
+  const createAlert = title =>
+    Alert.alert('Có lỗi', title, [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
   const showToast = () => {
     ToastAndroid.show('Cập nhật thành công', ToastAndroid.LONG);
   };
@@ -70,6 +75,10 @@ const EditProduct = () => {
       setEnable(false);
   }, [name, price, image, value]);
   const update = async () => {
+    if(price<10000||price>100){
+      createAlert("Giá thức uống tối thiểu là 10.000đ")
+      return
+    }
     const uri = image;
     if (route.params.item.linkImage != image) {
       try {
